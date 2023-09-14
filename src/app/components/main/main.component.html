@@ -3,9 +3,11 @@
     <button (click)="randomize()">Randomizza</button>
 
     <div class="slider">
-      <label for="gruppi">{{groupNumber}} gruppi</label>
-      <input [(ngModel)]="groupNumber" type="range" id="gruppi" name="gruppi" min="0" max="10" (change) ="createGroups()">
+      <label for="gruppi">{{groupNumber}} grupp{{groupNumber === 1 ? 'o' : 'i'}}</label>
+      <input [(ngModel)]="groupNumber" type="range" id="gruppi" name="gruppi" min="1" max="10" (ngModelChange) ="createGroups()">
     </div>
+
+    <button (click)="log()">log students</button>
 
   </div>
   <div class="card-container">
@@ -13,7 +15,7 @@
     <div class="group-div" *ngFor="let group of groups; let i = index">
       <h2>Gruppo {{i+1}}</h2>
       <div class="group-container">
-        <app-student-card *ngFor="let student of group" [studentData]="student"></app-student-card>
+        <app-student-card *ngFor="let student of group" [studentData]="student" (absent)="removeStudent($event)"></app-student-card>
 
       </div>
     </div>

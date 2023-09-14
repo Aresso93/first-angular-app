@@ -18,11 +18,12 @@ export class MainComponent implements OnInit {
   constructor(private dataServ: DataService){}
 
   ngOnInit(): void {
-    this.dataServ.getStudents().then(students => {
-      this.studentsData = students;
-      this.createGroups()
-    })
-
+    // this.conServ.getStudents().then(students => {
+    //   this.studentsData = students;
+    //   this.createGroups()
+    // })
+    this.studentsData = this.dataServ.studentsArray;
+    this.createGroups();
   }
 
 
@@ -72,6 +73,16 @@ export class MainComponent implements OnInit {
       this.groups[groupIndex].push(student)
     }
     console.log(this.groups);
+  }
+
+  removeStudent(student: Student): void{
+    this.studentsData = this.studentsData.filter(s => s.id !== student.id)
+    this.createGroups();
+  }
+
+  log(){
+    console.log(this.studentsData);
+
   }
 
 }
